@@ -6,5 +6,15 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid/>
+    <Grid>
+        <Label Content="Podaj dane do zaszyfrowania/deszyfrowania" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <TextBox Name="TekstPodany" HorizontalAlignment="Left" Height="23" Margin="98,123,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="173"/>
+        <Label Content="Tekst:" HorizontalAlignment="Left" Margin="40,120,0,0" VerticalAlignment="Top"/>
+        <Label Content="Klucz:" HorizontalAlignment="Left" Margin="40,160,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="Klucz" HorizontalAlignment="Left" Height="23" Margin="98,163,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="173"/>
+        <Label Content="Wynik" HorizontalAlignment="Left" Margin="40,247,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="TekstWynikowy" HorizontalAlignment="Left" Height="26" Margin="98,247,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="173"/>
+        <Button Content="Zaszyfruj (Rail Fence)" HorizontalAlignment="Left" Margin="40,209,0,0" VerticalAlignment="Top" Width="133" Click="RailFence_button"/>
+        <Button Content="Deszyfruj (Rail Fence)" HorizontalAlignment="Left" Margin="196,209,0,0" VerticalAlignment="Top" Width="126" Click="RailFenceDeszyfrowanie_button"/>
+    </Grid>
 </Window>
