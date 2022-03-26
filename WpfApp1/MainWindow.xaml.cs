@@ -22,8 +22,11 @@ namespace WpfApp1
     {
         private string M;
         private int k;
-        private string C;
+        private string C = null;
+        private string klucz;
         private char[,] tab = null;
+        int a, b;
+        string alfabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         public MainWindow()
         {
@@ -33,13 +36,14 @@ namespace WpfApp1
         private void WczytajDane()
         {
             M = TekstPodany.Text;
-            k = Convert.ToInt32(Klucz.Text);
+            klucz = Klucz.Text;
         }
 
         private void RailFence_button(object sender, RoutedEventArgs e)
         {
             WczytajDane();
             int w = M.Length;
+            k = Convert.ToInt32(klucz);
             tab = new char[k, w];
             bool do_dolu = false;
             int wiersz = 0;
@@ -57,31 +61,30 @@ namespace WpfApp1
                 else { wiersz--; }
             }
 
-            String zaszyfrowany = null;
-
+            C = null;
             for (int i = 0; i < k; i++)
             {
                 for (int j = 0; j < w; j++)
                 {
                     if(tab[i,j] > 0)
                     {
-                        zaszyfrowany += tab[i, j];
+                        C += tab[i, j];
                     }
                 }
             }
 
-            TekstWynikowy.Text = zaszyfrowany;
+            TekstWynikowy.Text = C;
         }
 
         private void RailFenceDeszyfrowanie_button(object sender, RoutedEventArgs e)
         {
             WczytajDane();
             int w = M.Length;
+            k = Convert.ToInt32(klucz);
             tab = new char[k, w];
             bool do_dolu = false;
             int wiersz = 0;
 
-            Console.WriteLine(M);
             for (int i = 0; i < w; i++)
             {
                 if (wiersz == 0 || wiersz == k - 1)
@@ -95,7 +98,7 @@ namespace WpfApp1
                 else { wiersz--; }
             }
 
-            String oryginalny = null;
+            C = null;
             int m = 0;
 
             for (int i = 0; i < k; i++)
@@ -120,13 +123,54 @@ namespace WpfApp1
                     do_dolu = !do_dolu;
                 }
 
-                oryginalny += tab[wiersz, i];
+                C += tab[wiersz, i];
 
                 if (do_dolu == true) { wiersz++; }
                 else { wiersz--; }
             }
 
-            TekstWynikowy.Text = oryginalny;
+            TekstWynikowy.Text = C;
+        }
+
+        private void Vigenere_button(object sender, RoutedEventArgs e)
+        {
+            WczytajDane();
+
+            C = null;
+            
+            for (int i = 0; i < M.Length; i++)
+            {
+                a = alfabet.IndexOf(char.ToUpper(M.ElementAt(i)));
+                b = alfabet.IndexOf(char.ToUpper(klucz.ElementAt(i % klucz.Length)));
+
+                C += alfabet.ElementAt((a + b) % alfabet.Length);
+            }
+
+            TekstWynikowy.Text = C;
+        }
+
+        private void VigenereDeszyfrowanie_button(object sender, RoutedEventArgs e)
+        {
+            WczytajDane();
+
+            C = null;
+            int r;
+            for (int i = 0; i < M.Length; i++)
+            {
+                a = alfabet.IndexOf(char.ToUpper(M.ElementAt(i)));
+                b = alfabet.IndexOf(char.ToUpper(klucz.ElementAt(i % klucz.Length)));
+                r = a - b;
+                if(r < 0)
+                {
+                    C += alfabet.ElementAt((r+alfabet.Length) % alfabet.Length);
+                }
+                else
+                {
+                    C += alfabet.ElementAt(r % alfabet.Length);
+                }
+            }
+
+            TekstWynikowy.Text = C;
         }
 
     }
