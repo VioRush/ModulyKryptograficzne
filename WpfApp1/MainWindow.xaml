@@ -16,5 +16,7 @@
         <TextBox Name="TekstWynikowy" HorizontalAlignment="Left" Height="26" Margin="98,247,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="173"/>
         <Button Content="Zaszyfruj (Rail Fence)" HorizontalAlignment="Left" Margin="40,209,0,0" VerticalAlignment="Top" Width="133" Click="RailFence_button"/>
         <Button Content="Deszyfruj (Rail Fence)" HorizontalAlignment="Left" Margin="196,209,0,0" VerticalAlignment="Top" Width="126" Click="RailFenceDeszyfrowanie_button"/>
+        <Button Content="Zaszyfruj (Vigenere)" HorizontalAlignment="Left" Margin="360,209,0,0" VerticalAlignment="Top" Width="133" Click="Vigenere_button"/>
+        <Button Content="Deszyfruj (Vigenere)" HorizontalAlignment="Left" Margin="520,209,0,0" VerticalAlignment="Top" Width="126" Click="VigenereDeszyfrowanie_button"/>
     </Grid>
 </Window>
