@@ -173,5 +173,53 @@ namespace WpfApp1
             TekstWynikowy.Text = C;
         }
 
+        private void PrzestawienieA_button(object sender, RoutedEventArgs e)
+        {
+            WczytajDane();
+            k  = Int16.Parse(klucz);
+            C = null;
+
+            for (int i = 0; i < Math.Ceiling((double)M.Length / (double)klucz.Length); i++)
+                for (int j = 0; j < klucz.Length; j++)
+                    if ((i * klucz.Length + (int)Char.GetNumericValue(klucz[j]) - 1)<M.Length) C += M[i * klucz.Length + (int)Char.GetNumericValue(klucz[j]) -1];
+
+            TekstWynikowy.Text = C;
+        }
+
+        private void PrzestawienieADeszyfrowanie_button(object sender, RoutedEventArgs e)
+        {
+            WczytajDane();
+            C = null;
+
+            string swapKlucz = null;
+
+            for (int i = 0; i < klucz.Length; i++)
+                swapKlucz += klucz.Length+1 - (int)Char.GetNumericValue(klucz[i]);
+
+            for (int i = 0; i < Math.Floor((double)M.Length / (double)klucz.Length); i++)
+                for (int j = 0; j < swapKlucz.Length; j++)
+                    if ((i * swapKlucz.Length + (int)Char.GetNumericValue(klucz[j]) - 1) < M.Length) C += M[i * swapKlucz.Length + (int)Char.GetNumericValue(swapKlucz[j]) - 1];
+
+            if (C.Length < M.Length)
+            {
+                String newKlucz = null;
+                for (int i = 0; i < klucz.Length; i++)
+                    if ((int)Char.GetNumericValue(klucz[i]) <= (M.Length - C.Length))
+                        newKlucz += klucz[i];
+                int Last = C.Length;
+
+                M = M.Substring(C.Length, M.Length - C.Length);
+                Char[] LastPart = new Char[M.Length];
+
+                for (int j = 0; j < newKlucz.Length; j++)
+                    LastPart[(int)Char.GetNumericValue(newKlucz[j])-1] = M[j];
+
+                for (int j = 0; j < newKlucz.Length; j++)
+                    C += LastPart[j];
+            }
+
+            TekstWynikowy.Text = C;
+        }
+
     }
 }
