@@ -193,7 +193,9 @@ namespace WpfApp1
             string swapKlucz = null;
 
             for (int i = 0; i < klucz.Length; i++)
-                swapKlucz += klucz.Length+1 - (int)Char.GetNumericValue(klucz[i]);
+                for (int j = 0; j < klucz.Length; j++)
+                    if ((int)Char.GetNumericValue(klucz[j]) == i+1)
+                        swapKlucz += (j+1).ToString();
 
             for (int i = 0; i < Math.Floor((double)M.Length / (double)klucz.Length); i++)
                 for (int j = 0; j < swapKlucz.Length; j++)
