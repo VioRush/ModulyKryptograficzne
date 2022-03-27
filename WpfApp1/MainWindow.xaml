@@ -20,5 +20,7 @@
         <Button Content="Deszyfruj (Vigenere)" HorizontalAlignment="Left" Margin="178,234,0,0" VerticalAlignment="Top" Width="133" Click="VigenereDeszyfrowanie_button"/>
         <Button Content="Zaszyfruj (Przestawienie A)" HorizontalAlignment="Left" Margin="319,209,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieA_button"/>
         <Button Content="Deszyfruj (Przestawienie A)" HorizontalAlignment="Left" Margin="319,234,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieADeszyfrowanie_button"/>
+        <Button Content="Zaszyfruj (Przestawienie C)" HorizontalAlignment="Left" Margin="472,209,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieC_button"/>
+        <Button Content="Deszyfruj (Przestawienie C)" HorizontalAlignment="Left" Margin="472,234,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieCDeszyfrowanie_button"/>
     </Grid>
 </Window>

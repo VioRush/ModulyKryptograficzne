@@ -176,7 +176,6 @@ namespace WpfApp1
         private void PrzestawienieA_button(object sender, RoutedEventArgs e)
         {
             WczytajDane();
-            k  = Int16.Parse(klucz);
             C = null;
 
             for (int i = 0; i < Math.Ceiling((double)M.Length / (double)klucz.Length); i++)
@@ -219,6 +218,111 @@ namespace WpfApp1
             }
 
             TekstWynikowy.Text = C;
+        }
+
+        private void PrzestawienieC_button(object sender, RoutedEventArgs e)
+        {
+            //WczytajDane();
+            M = "HERE IS A SECRET MESSAGE ENCIPHERED BY TRANSPOSITION";
+            klucz = "CONVENIENCE";
+
+            C = null;
+            Char[,] tab = new char[M.Length + klucz.Length, M.Length + klucz.Length];
+            int[] values = new int[klucz.Length];
+
+            for (int i = 0; i <= klucz.Length; i++)
+            {
+                Char min = Char.MaxValue;
+                int minPos = 0;
+                for (int j = 0; j < klucz.Length; j++)
+                {
+                    if ((klucz[j] < min) && (values[j] == 0)) { min = klucz[j]; minPos = j; }
+                }
+                values[minPos] = i;
+            }
+
+            int element = 0;
+            int line = 0;
+            int column = 0;
+            int exceed = 0;
+            while (element < M.Length)
+            {
+                if (Char.IsLetter(M[element]))
+                {
+                    tab[line + klucz.Length * exceed, column] = M[element];
+                    element++;
+                    if (line == values[column]-1)
+                    {
+                        column = 0;
+                        line++;
+                    }
+                    else
+                    {
+                        column++;
+                    }
+                    if (line >= klucz.Length)
+                    {
+                        column = 0;
+                        line = 0;
+                        exceed++;
+                    }
+                }
+                else element++;
+            }
+
+            for (int i = 0; i < klucz.Length; i++)
+            {
+                for (int j = 0; j < klucz.Length; j++)
+                {
+                    if (values[j] == i+1)
+                    {
+                        for (int k = 0; k < klucz.Length * (exceed + 1); k++)
+                        {
+                            if (Char.IsLetter(tab[k, j])) C += tab[k, j];
+                        }
+                        C += ' ';
+                    }
+                }
+            }
+
+            TekstWynikowy.Text = C;
+        }
+
+        private void PrzestawienieCDeszyfrowanie_button(object sender, RoutedEventArgs e)
+        {
+            WczytajDane();
+            C = null;
+
+            string swapKlucz = null;
+
+            for (int i = 0; i < klucz.Length; i++)
+                swapKlucz += klucz.Length + 1 - (int)Char.GetNumericValue(klucz[i]);
+
+            for (int i = 0; i < Math.Floor((double)M.Length / (double)klucz.Length); i++)
+                for (int j = 0; j < swapKlucz.Length; j++)
+                    if ((i * swapKlucz.Length + (int)Char.GetNumericValue(klucz[j]) - 1) < M.Length) C += M[i * swapKlucz.Length + (int)Char.GetNumericValue(swapKlucz[j]) - 1];
+
+            if (C.Length < M.Length)
+            {
+                String newKlucz = null;
+                for (int i = 0; i < klucz.Length; i++)
+                    if ((int)Char.GetNumericValue(klucz[i]) <= (M.Length - C.Length))
+                        newKlucz += klucz[i];
+                int Last = C.Length;
+
+                M = M.Substring(C.Length, M.Length - C.Length);
+                Char[] LastPart = new Char[M.Length];
+
+                for (int j = 0; j < newKlucz.Length; j++)
+                    LastPart[(int)Char.GetNumericValue(newKlucz[j]) - 1] = M[j];
+
+                for (int j = 0; j < newKlucz.Length; j++)
+                    C += LastPart[j];
+            }
+
+            TekstWynikowy.Text = C;
+
+            TekstWynikowy.Text = "NIE DZIALA";
         }
 
     }
