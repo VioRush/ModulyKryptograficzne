@@ -378,5 +378,136 @@ namespace WpfApp1
             TekstWynikowy.Text = C;
         }
 
+        private void PrzestawienieB_button(object sender, RoutedEventArgs e)
+        {
+            TekstWynikowy.Text = SzyfrowaniePrzykladB();
+        }
+
+        private void PrzestawienieBDeszyfrowanie_button(object sender, RoutedEventArgs e)
+        {
+            TekstWynikowy.Text = DeszyfrowaniePrzykladB();
+        }
+
+        private void SzyfrCezara_button(object sender, RoutedEventArgs e)
+        {
+            TekstWynikowy.Text = Szyfrowanie(TekstPodany.Text);
+        }
+
+        private void SzyfrCezaraDeszyfrowanie_button(object sender, RoutedEventArgs e)
+        {
+            TekstWynikowy.Text = Deszyfrowanie(TekstPodany.Text);
+        }
+
+
+        public string Szyfrowanie(string inp)
+        {
+            WczytajDane();
+            StringBuilder code = new StringBuilder();
+            string message = M;
+
+            for (int i = 0; i < message.Length; i++)
+                for (int j = 0; j < alfabet.Length; j++)
+                    if (message[i] == alfabet[j])
+                        code.Append(alfabet[(j + Convert.ToInt32(klucz)) % alfabet.Length]);
+
+            return code.ToString();
+        }
+        public string Deszyfrowanie(string inp)
+        {
+            WczytajDane();
+            StringBuilder code = new StringBuilder();
+            string message = M;
+            int k = Convert.ToInt32(klucz);
+
+            for (int i = 0; i < message.Length; i++)
+                for (int j = 0; j < alfabet.Length; j++)
+                    if (message[i] == alfabet[j])
+                        code.Append(alfabet[(j - k + alfabet.Length) % alfabet.Length]);
+
+            return code.ToString();
+        }
+
+        public string SzyfrowaniePrzykladB()
+        {
+            WczytajDane();
+            string message = M;
+            int kolumn = klucz.Length;
+            int wiersz = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(message.Length) / kolumn));
+            string szyfr = "";
+
+
+            char[,] message_char = new char[wiersz, kolumn];
+
+            int value = 0;
+
+            for (int i = 0; i < wiersz; i++)
+                for (int j = 0; j < kolumn; j++)
+                {
+                    if (value >= message.Length)
+                        continue;
+                    if (message[value] == ' ')
+                        value++;
+                    message_char[i, j] = message[value];
+                    value++;
+                }
+
+            for (int i = 0; i < alfabet.Length; i++)
+                for (int j = 0; j < klucz.Length; j++)
+                    if (alfabet[i] == klucz[j])
+                        for (int g = 0; g <= wiersz; g++)
+                        {
+                            if (g == wiersz)
+                            {
+                                szyfr += " ";
+                                break;
+                            }
+                            szyfr += message_char[g, j];
+                        }
+
+            return szyfr;
+        }
+
+        public string DeszyfrowaniePrzykladB()
+        {
+            WczytajDane();
+            string message = M;
+            int kolumn = klucz.Length;
+            int wiersz = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(message.Length) / kolumn));
+            string deszyfr = "";
+
+            char[,] message_char = new char[wiersz, kolumn];
+
+            int value = 0;
+
+            for (int i = 0; i < alfabet.Length; i++)
+                for (int j = 0; j < klucz.Length; j++)
+                    if (alfabet[i] == klucz[j])
+                        if (message[value] == ' ')
+                        {
+                            value++;
+                            for (int g = 0; g < wiersz - 1; g++)
+                            {
+                                message_char[g, j] = message[value];
+                                value++;
+                            }
+                        }
+                        else
+                        {
+                            for (int g = 0; g < wiersz; g++)
+                            {
+                                message_char[g, j] = message[value];
+                                value++;
+                            }
+
+                        }
+
+            for (int i = 0; i < wiersz; i++)
+                for (int j = 0; j < kolumn; j++)
+                {
+                    deszyfr += message_char[i, j];
+                }
+
+            return deszyfr;
+        }
     }
 }

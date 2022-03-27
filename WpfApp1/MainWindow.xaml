@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="975.294">
     <Grid>
         <Label Content="Podaj dane do zaszyfrowania/deszyfrowania" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" FontSize="18"/>
         <TextBox Name="TekstPodany" HorizontalAlignment="Left" Height="52" Margin="98,123,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="613"/>
@@ -22,5 +22,9 @@
         <Button Content="Deszyfruj (Przestawienie A)" HorizontalAlignment="Left" Margin="322,261,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieADeszyfrowanie_button"/>
         <Button Content="Zaszyfruj (Przestawienie C)" HorizontalAlignment="Left" Margin="475,236,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieC_button"/>
         <Button Content="Deszyfruj (Przestawienie C)" HorizontalAlignment="Left" Margin="475,261,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieCDeszyfrowanie_button"/>
+        <Button Content="Zaszyfruj (Przestawienie B)" HorizontalAlignment="Left" Margin="634,236,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieB_button"/>
+        <Button Content="Deszyfruj (Przestawienie B)" HorizontalAlignment="Left" Margin="634,261,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieBDeszyfrowanie_button"/>
+        <Button Content="Zaszyfruj (Szyfr Cezara)" HorizontalAlignment="Left" Margin="797,236,0,0" VerticalAlignment="Top" Width="148" Click="SzyfrCezara_button"/>
+        <Button Content="Deszyfruj (Szyfr Cezara)" HorizontalAlignment="Left" Margin="797,261,0,0" VerticalAlignment="Top" Width="148" Click="SzyfrCezaraDeszyfrowanie_button"/>
     </Grid>
 </Window>
