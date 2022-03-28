@@ -5,26 +5,143 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="975.294">
+        Title="MainWindow" Height="450" Width="975">
     <Grid>
-        <Label Content="Podaj dane do zaszyfrowania/deszyfrowania" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <TextBox Name="TekstPodany" HorizontalAlignment="Left" Height="52" Margin="98,123,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="613"/>
-        <Label Content="Tekst:" HorizontalAlignment="Left" Margin="40,120,0,0" VerticalAlignment="Top"/>
-        <Label Content="Klucz:" HorizontalAlignment="Left" Margin="43,187,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="Klucz" HorizontalAlignment="Left" Height="23" Margin="98,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="613"/>
-        <Label Content="Wynik" HorizontalAlignment="Left" Margin="43,298,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="TekstWynikowy" HorizontalAlignment="Left" Height="60" Margin="98,298,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="613"/>
-        <Button Content="Zaszyfruj (Rail Fence)" HorizontalAlignment="Left" Margin="43,236,0,0" VerticalAlignment="Top" Width="133" Click="RailFence_button"/>
-        <Button Content="Deszyfruj (Rail Fence)" HorizontalAlignment="Left" Margin="43,261,0,0" VerticalAlignment="Top" Width="133" Click="RailFenceDeszyfrowanie_button"/>
-        <Button Content="Zaszyfruj (Vigenere)" HorizontalAlignment="Left" Margin="181,236,0,0" VerticalAlignment="Top" Width="133" Click="Vigenere_button"/>
-        <Button Content="Deszyfruj (Vigenere)" HorizontalAlignment="Left" Margin="181,261,0,0" VerticalAlignment="Top" Width="133" Click="VigenereDeszyfrowanie_button"/>
-        <Button Content="Zaszyfruj (Przestawienie A)" HorizontalAlignment="Left" Margin="322,236,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieA_button"/>
-        <Button Content="Deszyfruj (Przestawienie A)" HorizontalAlignment="Left" Margin="322,261,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieADeszyfrowanie_button"/>
-        <Button Content="Zaszyfruj (Przestawienie C)" HorizontalAlignment="Left" Margin="475,236,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieC_button"/>
-        <Button Content="Deszyfruj (Przestawienie C)" HorizontalAlignment="Left" Margin="475,261,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieCDeszyfrowanie_button"/>
-        <Button Content="Zaszyfruj (Przestawienie B)" HorizontalAlignment="Left" Margin="634,236,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieB_button"/>
-        <Button Content="Deszyfruj (Przestawienie B)" HorizontalAlignment="Left" Margin="634,261,0,0" VerticalAlignment="Top" Width="148" Click="PrzestawienieBDeszyfrowanie_button"/>
-        <Button Content="Zaszyfruj (Szyfr Cezara)" HorizontalAlignment="Left" Margin="797,236,0,0" VerticalAlignment="Top" Width="148" Click="SzyfrCezara_button"/>
-        <Button Content="Deszyfruj (Szyfr Cezara)" HorizontalAlignment="Left" Margin="797,261,0,0" VerticalAlignment="Top" Width="148" Click="SzyfrCezaraDeszyfrowanie_button"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="826*"/>
+            <ColumnDefinition Width="143*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="kryptografia.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Label Content="Podaj dane do zaszyfrowania/deszyfrowania" HorizontalAlignment="Left" Margin="98,46,0,0" VerticalAlignment="Top" FontSize="18">
+            <Label.Background>
+                <SolidColorBrush Color="#FF43DEFC" Opacity="0.9"/>
+            </Label.Background>
+        </Label>
+        <TextBox Name="TekstPodany" HorizontalAlignment="Left" Height="52" Margin="98,123,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="807" FontSize="16" Grid.ColumnSpan="2"/>
+        <Label Content="Tekst:" HorizontalAlignment="Left" Margin="43,138,0,0" VerticalAlignment="Top">
+            <Label.Background>
+                <SolidColorBrush Color="#FF43DEFC" Opacity="0.9"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Klucz:" HorizontalAlignment="Left" Margin="43,187,0,0" VerticalAlignment="Top">
+            <Label.Background>
+                <SolidColorBrush Color="#FF43DEFC" Opacity="0.9"/>
+            </Label.Background>
+        </Label>
+        <TextBox Name="Klucz" HorizontalAlignment="Left" Height="23" Margin="98,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="807" FontSize="16" Grid.ColumnSpan="2"/>
+        <Label Content="Wynik" HorizontalAlignment="Left" Margin="43,324,0,0" VerticalAlignment="Top">
+            <Label.Background>
+                <SolidColorBrush Color="#FF43DEFC" Opacity="0.9"/>
+            </Label.Background>
+        </Label>
+        <TextBox Name="TekstWynikowy" HorizontalAlignment="Left" Height="60" Margin="98,307,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="807" FontSize="16" Grid.ColumnSpan="2"/>
+        <Button Content="Rail Fence" Padding="5" Foreground="White" HorizontalAlignment="Left" Margin="117,232,0,0" VerticalAlignment="Top" Width="107" Click="RailFence_button" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF132F3C"/>
+                    <GradientStop Color="#FF7AC9EB" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Rail Fence" Padding="5" Foreground="White" HorizontalAlignment="Left" Margin="117,264,0,0" VerticalAlignment="Top" Width="107" Click="RailFenceDeszyfrowanie_button" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF132F3C"/>
+                    <GradientStop Color="#FF7AC9EB" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Vigenere" Padding="5" Foreground="White" HorizontalAlignment="Left" Margin="238,233,0,0" VerticalAlignment="Top" Width="107" Click="Vigenere_button" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF132F3C"/>
+                    <GradientStop Color="#FF7AC9EB" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Vigenere" Padding="5" Foreground="White" HorizontalAlignment="Left" Margin="238,264,0,0" VerticalAlignment="Top" Width="107" Click="VigenereDeszyfrowanie_button" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF132F3C"/>
+                    <GradientStop Color="#FF7AC9EB" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Przestawienie A" Padding="5" Foreground="White" HorizontalAlignment="Left" Margin="364,232,0,0" VerticalAlignment="Top" Width="117" Click="PrzestawienieA_button" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF132F3C"/>
+                    <GradientStop Color="#FF7AC9EB" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Przestawienie A" Padding="5" Foreground="White" HorizontalAlignment="Left" Margin="364,264,0,0" VerticalAlignment="Top" Width="117" Click="PrzestawienieADeszyfrowanie_button" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF132F3C"/>
+                    <GradientStop Color="#FF7AC9EB" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Przestawienie C" Padding="5" Foreground="White" HorizontalAlignment="Left" Margin="497,232,0,0" VerticalAlignment="Top" Width="117" Click="PrzestawienieC_button" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF132F3C"/>
+                    <GradientStop Color="#FF7AC9EB" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Przestawienie C" Padding="5" Foreground="White" HorizontalAlignment="Left" Margin="497,264,0,0" VerticalAlignment="Top" Width="117" Click="PrzestawienieCDeszyfrowanie_button" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF132F3C"/>
+                    <GradientStop Color="#FF7AC9EB" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Przestawienie B" Padding="5" Foreground="White" HorizontalAlignment="Left" Margin="632,232,0,0" VerticalAlignment="Top" Width="117" Click="PrzestawienieB_button" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF132F3C"/>
+                    <GradientStop Color="#FF7AC9EB" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Przestawienie B" Padding="5" Foreground="White" HorizontalAlignment="Left" Margin="632,264,0,0" VerticalAlignment="Top" Width="117" Click="PrzestawienieBDeszyfrowanie_button" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF132F3C"/>
+                    <GradientStop Color="#FF7AC9EB" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Szyfr Cezara" Padding="5" Foreground="White" HorizontalAlignment="Left" Margin="765,233,0,0" VerticalAlignment="Top" Width="107" Click="SzyfrCezara_button" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold" Grid.ColumnSpan="2">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF132F3C"/>
+                    <GradientStop Color="#FF7AC9EB" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Szyfr Cezara" Padding="5" Foreground="White" HorizontalAlignment="Left" Margin="765,264,0,0" VerticalAlignment="Top" Width="107" Click="SzyfrCezaraDeszyfrowanie_button" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold" Grid.ColumnSpan="2">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF132F3C"/>
+                    <GradientStop Color="#FF7AC9EB" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Label Content="Szyfrowanie" HorizontalAlignment="Left" Margin="14,233,0,0" VerticalAlignment="Top">
+            <Label.Background>
+                <SolidColorBrush Color="#FF43DEFC" Opacity="0.9"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Deszyfrowanie" HorizontalAlignment="Left" Margin="10,267,0,0" VerticalAlignment="Top" Width="86">
+            <Label.Background>
+                <SolidColorBrush Color="#FF43DEFC" Opacity="0.9"/>
+            </Label.Background>
+        </Label>
     </Grid>
 </Window>

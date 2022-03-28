@@ -34,7 +34,22 @@ namespace WpfApp1
         }
 
         private void WczytajDane()
-        {
+        { 
+            if (TekstPodany.Text.Length < 1)
+            {
+                TekstPodany.Background = Brushes.Red;
+                TekstPodany.ToolTip = "Nie podano tekst do zaszyfrowania. Pole jest wymagane!";
+            }
+            else if (Klucz.Text.Length < 1)
+            {
+                Klucz.Background = Brushes.Red;
+                Klucz.ToolTip = "Niepoprawnie podano wzrost! Pole jest wymagane!";
+            }
+            else
+            {
+                TekstPodany.Background = Brushes.White;
+                TekstPodany.ToolTip = "";
+            }
             M = TekstPodany.Text;
             klucz = Klucz.Text;
         }
@@ -43,93 +58,113 @@ namespace WpfApp1
         {
             WczytajDane();
             int w = M.Length;
-            k = Convert.ToInt32(klucz);
-            tab = new char[k, w];
-            bool do_dolu = false;
-            int wiersz = 0;
-
-            for (int i=0; i<w; i++)
+            if (!(int.TryParse(klucz, out k) || klucz == ".") || Convert.ToInt32(klucz) < 2)  //sprawdzenie, czy podany klucz jest liczbą > 1
             {
-               if(wiersz == 0 || wiersz == k - 1)
-               {
-                    do_dolu = !do_dolu;
-               }
-
-               tab[wiersz, i] = M[i];
-
-                if (do_dolu==true) { wiersz++; }
-                else { wiersz--; }
+                Klucz.Background = Brushes.Red;
+                Klucz.ToolTip = "Niepoprawnie podano klucz! Podaj liczbę całkowitą.";
             }
-
-            C = null;
-            for (int i = 0; i < k; i++)
+            else
             {
-                for (int j = 0; j < w; j++)
+                Klucz.Background = Brushes.White;
+                Klucz.ToolTip = "";
+                k = Convert.ToInt32(klucz);
+                tab = new char[k, w];
+                bool do_dolu = false;
+                int wiersz = 0;
+
+                for (int i = 0; i < w; i++)  //wypełnienie utworzonej tabeli według schematu
                 {
-                    if(tab[i,j] > 0)
+                    if (wiersz == 0 || wiersz == k - 1)
                     {
-                        C += tab[i, j];
+                        do_dolu = !do_dolu;  //zmiana kierunku, gdy dojdzie do ostatniego albo pierwszego wierszu 
+                    }
+
+                    tab[wiersz, i] = M[i];
+
+                    if (do_dolu == true) { wiersz++; }
+                    else { wiersz--; }
+                }
+
+                C = null;
+                for (int i = 0; i < k; i++)  //odczytanie tekstu zaszyfrowanego według schematu wierszami
+                {
+                    for (int j = 0; j < w; j++)
+                    {
+                        if (tab[i, j] > 0)
+                        {
+                            C += tab[i, j];
+                        }
                     }
                 }
-            }
 
-            TekstWynikowy.Text = C;
+                TekstWynikowy.Text = C;
+            }
         }
 
         private void RailFenceDeszyfrowanie_button(object sender, RoutedEventArgs e)
         {
             WczytajDane();
             int w = M.Length;
-            k = Convert.ToInt32(klucz);
-            tab = new char[k, w];
-            bool do_dolu = false;
-            int wiersz = 0;
-
-            for (int i = 0; i < w; i++)
+            if (!(int.TryParse(klucz, out k) || klucz == ".") || Convert.ToInt32(klucz) < 2) ////sprawdzenie, czy podany klucz jest liczbą
             {
-                if (wiersz == 0 || wiersz == k - 1)
+                Klucz.Background = Brushes.Red;
+                Klucz.ToolTip = "Niepoprawnie podano klucz! Podaj liczbę całkowitą.";
+            }
+            else
+            {
+                Klucz.Background = Brushes.White;
+                Klucz.ToolTip = "";
+                k = Convert.ToInt32(klucz);
+                tab = new char[k, w];
+                bool do_dolu = false;
+                int wiersz = 0;
+
+                for (int i = 0; i < w; i++)   //oznaczenie miejsc, dzie mają być litery znakiem kropki
                 {
-                    do_dolu = !do_dolu;
+                    if (wiersz == 0 || wiersz == k - 1)
+                    {
+                        do_dolu = !do_dolu;
+                    }
+
+                    tab[wiersz, i] = '.';
+
+                    if (do_dolu == true) { wiersz++; }
+                    else { wiersz--; }
                 }
 
-                tab[wiersz, i] = '.';
+                C = null;
+                int m = 0;
 
-                if (do_dolu == true) { wiersz++; }
-                else { wiersz--; }
-            }
-
-            C = null;
-            int m = 0;
-
-            for (int i = 0; i < k; i++)
-            {
-                for (int j = 0; j < w; j++)
+                for (int i = 0; i < k; i++)   //uzupełnienie utworzonej tabeli wierszami, gdzie jest kropka
                 {
-                    if (tab[i, j] == '.')
+                    for (int j = 0; j < w; j++)
                     {
-                        tab[i, j] = M.ElementAt(m);
-                        m++;
+                        if (tab[i, j] == '.')
+                        {
+                            tab[i, j] = M.ElementAt(m);
+                            m++;
+                        }
                     }
                 }
-            }
 
-            do_dolu = false;
-            wiersz = 0;
+                do_dolu = false;
+                wiersz = 0;
 
-            for (int i = 0; i < w; i++)
-            {
-                if (wiersz == 0 || wiersz == k - 1)
+                for (int i = 0; i < w; i++)  //odczytanie oryginalnego tekstu przechodząc po przekątnych
                 {
-                    do_dolu = !do_dolu;
+                    if (wiersz == 0 || wiersz == k - 1)
+                    {
+                        do_dolu = !do_dolu;
+                    }
+
+                    C += tab[wiersz, i];
+
+                    if (do_dolu == true) { wiersz++; }
+                    else { wiersz--; }
                 }
 
-                C += tab[wiersz, i];
-
-                if (do_dolu == true) { wiersz++; }
-                else { wiersz--; }
+                TekstWynikowy.Text = C;
             }
-
-            TekstWynikowy.Text = C;
         }
 
         private void Vigenere_button(object sender, RoutedEventArgs e)
@@ -137,16 +172,27 @@ namespace WpfApp1
             WczytajDane();
 
             C = null;
-            
-            for (int i = 0; i < M.Length; i++)
+
+            if (int.TryParse(klucz, out k)) ////sprawdzenie, czy podany klucz nie jest liczbą
             {
-                a = alfabet.IndexOf(char.ToUpper(M.ElementAt(i)));
-                b = alfabet.IndexOf(char.ToUpper(klucz.ElementAt(i % klucz.Length)));
-
-                C += alfabet.ElementAt((a + b) % alfabet.Length);
+                Klucz.Background = Brushes.Red;
+                Klucz.ToolTip = "Niepoprawnie podano klucz! Podaj napis.";
             }
+            else
+            {
+                Klucz.Background = Brushes.White;
+                Klucz.ToolTip = "";
+                for (int i = 0; i < M.Length; i++)  //przechodząc po wartościach tekstu oryginalnego podmieniamy litery
+                {
+                    a = alfabet.IndexOf(char.ToUpper(M.ElementAt(i)));
+                    b = alfabet.IndexOf(char.ToUpper(klucz.ElementAt(i % klucz.Length)));
 
-            TekstWynikowy.Text = C;
+                    C += alfabet.ElementAt((a + b) % alfabet.Length); //reszta z dzielenia sum indeksów liter tekstu i klucza daje indeks litery
+                                                                      //na którą podmieniamy
+                }
+
+                TekstWynikowy.Text = C;
+            }
         }
 
         private void VigenereDeszyfrowanie_button(object sender, RoutedEventArgs e)
@@ -155,22 +201,32 @@ namespace WpfApp1
 
             C = null;
             int r;
-            for (int i = 0; i < M.Length; i++)
+            if (int.TryParse(klucz, out k)) ////sprawdzenie, czy podany klucz nie jest liczbą
             {
-                a = alfabet.IndexOf(char.ToUpper(M.ElementAt(i)));
-                b = alfabet.IndexOf(char.ToUpper(klucz.ElementAt(i % klucz.Length)));
-                r = a - b;
-                if(r < 0)
-                {
-                    C += alfabet.ElementAt((r+alfabet.Length) % alfabet.Length);
-                }
-                else
-                {
-                    C += alfabet.ElementAt(r % alfabet.Length);
-                }
+                Klucz.Background = Brushes.Red;
+                Klucz.ToolTip = "Niepoprawnie podano klucz! Podaj napis.";
             }
+            else
+            {
+                Klucz.Background = Brushes.White;
+                Klucz.ToolTip = "";
+                for (int i = 0; i < M.Length; i++) //przechodząc po wartościach zasyfrowanego tekstu podmieniamy litery
+                {
+                    a = alfabet.IndexOf(char.ToUpper(M.ElementAt(i)));
+                    b = alfabet.IndexOf(char.ToUpper(klucz.ElementAt(i % klucz.Length)));
+                    r = a - b;
+                    if (r < 0)  //w zależności od znaku różnicy indeksów stosujemy tą albo inną formulę
+                    {
+                        C += alfabet.ElementAt((r + alfabet.Length) % alfabet.Length);
+                    }
+                    else
+                    {
+                        C += alfabet.ElementAt(r % alfabet.Length);
+                    }
+                }
 
-            TekstWynikowy.Text = C;
+                TekstWynikowy.Text = C;
+            }
         }
 
         private void PrzestawienieA_button(object sender, RoutedEventArgs e)
@@ -508,6 +564,16 @@ namespace WpfApp1
                 }
 
             return deszyfr;
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            int result;
+
+            if (!(int.TryParse(e.Text, out result) || e.Text == "."))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
