@@ -566,6 +566,13 @@ namespace WpfApp1
             return deszyfr;
         }
 
+        private void Next_Click(object sender, RoutedEventArgs e)
+        {
+            Window2 nowe = new Window2();
+            nowe.Show();
+            Close();
+        }
+
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             int result;
