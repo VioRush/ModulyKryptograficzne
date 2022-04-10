@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace WpfApp1
         }
 
         string wielomian;
+        string wielomian_prev;
         string ciąg_bitow;
         bool zatrzymaj = false;
 
@@ -32,6 +34,12 @@ namespace WpfApp1
         {
             Random rnd = new Random();
             wielomian = WielomianPodany.Text;
+            if (wielomian_prev != wielomian)
+            {
+                wielomian_prev = wielomian;
+                ciąg_bitow = null;
+                TekstWynikowy.Text = "";
+            }
             for (int i = 0; i < wielomian.Length; i++)
             {
                 ciąg_bitow += rnd.Next(2);
@@ -45,29 +53,27 @@ namespace WpfApp1
         public void LFSR()
         {
             //do momentu zatrzymania przez użytkownika
-                var wynik = 0;
-                var ostatni_bit = ciąg_bitow.ElementAt(ciąg_bitow.Length - 1);
-                for (int i = 0; i < wielomian.Length; i++)
+            var wynik = 0;
+            var ostatni_bit = ciąg_bitow.ElementAt(ciąg_bitow.Length - 1);
+            for (int i = 0; i < wielomian.Length; i++)
+            {
+                if (wielomian[i] == '1')
                 {
-                    if (wielomian[i] == '1')
-                    {
-                        wynik = xor(ciąg_bitow[i], ostatni_bit);
-                    }
-
+                    wynik = xor(ciąg_bitow[i], ostatni_bit);
                 }
 
-                string tmp = "";
-                tmp += wynik;
+            }
 
-                for (int i = 1; i < ciąg_bitow.Length; i++)
-                {
-                    tmp += ciąg_bitow[i - 1];
-                }
+            string tmp = "";
+            tmp += wynik;
 
-                ciąg_bitow = tmp;
-                TekstWynikowy.Text += tmp + "\n";
-            
-            
+            for (int i = 1; i < ciąg_bitow.Length; i++)
+            {
+                tmp += ciąg_bitow[i - 1];
+            }
+
+            ciąg_bitow = tmp;
+            TekstWynikowy.Text += tmp + "\n";
         }
 
         public int xor(int a, int b)
@@ -77,6 +83,53 @@ namespace WpfApp1
 
         }
 
+        int next = 0;
+        public byte NextByte()
+        {
+            byte b = 0;
+            for (int i = 7; i >= 0; i--)
+            {
+                if (next >= ciąg_bitow.Length) next = 0;
+                if (ciąg_bitow[next] == '1') b = (byte)((b + Math.Pow(2, i)) % byte.MaxValue);
+                next++;
+            }
+            //Console.WriteLine(b);
+            return b;
+        }
+
+        public void Cipher_file(object sender, RoutedEventArgs e)
+        {
+            var ofd = new Microsoft.Win32.OpenFileDialog() {};
+            if (ofd.ShowDialog() == false) return;
+            string Cipher_me = File.ReadAllText(ofd.FileName);
+            string Ciphered = "";
+            next = 0;
+            for (int i = 0; i < Cipher_me.Length; i++)
+            {
+                Ciphered += (Char)((Char)Cipher_me[i] + NextByte());
+            }
+            using (StreamWriter sw = File.CreateText(ofd.FileName))
+            {
+                sw.Write(Ciphered);
+            }
+        }
+
+        public void Decipher_file(object sender, RoutedEventArgs e)
+        {
+            var ofd = new Microsoft.Win32.OpenFileDialog() { };
+            if (ofd.ShowDialog() == false) return;
+            string Cipher_me = File.ReadAllText(ofd.FileName);
+            string Ciphered = "";
+            next = 0;
+            for (int i = 0; i < Cipher_me.Length; i++)
+            {
+                Ciphered += (Char)((Char)Cipher_me[i] - NextByte());
+            }
+            using (StreamWriter sw = File.CreateText(ofd.FileName))
+            {
+                sw.Write(Ciphered);
+            }
+        }
 
         private void Zatrzymaj_button(object sender, RoutedEventArgs e)
         {
