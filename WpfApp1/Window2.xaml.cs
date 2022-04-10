@@ -82,5 +82,12 @@ namespace WpfApp1
         {
             zatrzymaj = true;
         }
+
+        private void Prev_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow nowe = new MainWindow();
+            nowe.Show();
+            Close();
+        }
     }
 }

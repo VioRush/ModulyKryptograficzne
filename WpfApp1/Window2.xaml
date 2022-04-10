@@ -38,5 +38,13 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
+        <Button Content="&lt;- Wstecz" Padding="5" Foreground="White" Margin="24,0,0,22" Click="Prev_Click" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Width="107" Height="29" VerticalAlignment="Bottom">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF132F3C"/>
+                    <GradientStop Color="#FF7AC9EB" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>
