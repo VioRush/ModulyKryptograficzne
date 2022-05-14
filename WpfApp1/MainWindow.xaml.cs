@@ -573,6 +573,13 @@ namespace WpfApp1
             Close();
         }
 
+        private void DES_button(object sender, RoutedEventArgs e)
+        {
+            Window1 nowe = new Window1();
+            nowe.Show();
+            Close();
+        }
+
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             int result;

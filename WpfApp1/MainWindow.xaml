@@ -151,5 +151,13 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
+        <Button Content="DES ->" Padding="5" Foreground="White" HorizontalAlignment="Left" Margin="719,381,0,0" VerticalAlignment="Top" Width="107" Click="DES_button" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold" Grid.ColumnSpan="2">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF132F3C"/>
+                    <GradientStop Color="#FF7AC9EB" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>
