@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 
 namespace WpfApp1.Core
@@ -6,6 +7,23 @@ namespace WpfApp1.Core
     internal class DES
     {
         public static string[] K;
+        public static ArrayList Sn;
+
+        public DES(byte[] binaryInput, byte[] key)
+        {
+            //input and generator(key)
+            Sn = new ArrayList();
+            Sn.Add(S1);
+            Sn.Add(S2);
+            Sn.Add(S3);
+            Sn.Add(S4);
+            Sn.Add(S5);
+            Sn.Add(S6);
+            Sn.Add(S7);
+            Sn.Add(S8);
+
+        }
+
         public void KeysGenerator(byte[] key)
         {
             char[] C = new char[28],
@@ -71,7 +89,7 @@ namespace WpfApp1.Core
             for (int i = 0; i < 16; i++)
             {
                 data = R;
-                // add R
+                R = XOR(L, F(data, K[i]));
                 L = data;
             }
 
@@ -87,11 +105,69 @@ namespace WpfApp1.Core
             for (int i = 15; i >= 0; i--)
             {
                 data = R;
-                // add R
+                R = XOR(L, F(data, K[i]));
                 L = data;
             }
 
             return R + L;
+        }
+
+        private string F(string R, string K)
+        {
+            string R48 = EPermutation(R);
+            string XORresult = XOR(R48, K);
+            
+            string input = "";
+
+            for (int i = 0; i < 8; i += 2)
+            {
+                input += S(XORresult.Substring(i * 6, 6), Sn[i] as int[,]) + S(XORresult.Substring((i + 1) * 6, 6), Sn[i + 1] as int[,]);
+            }
+
+            char[] output = new char[input.Length];
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                output[i] = input[P[i] - 1];
+            }
+
+            string output32 = new string(output);
+            return output32;
+        }
+
+        private string XOR(string a, string b )
+        {
+            string XORresult = "";
+
+            if (a.Length != b.Length)
+            {
+                return null;
+            }
+            
+            for (int i = 0; i < a.Length; i++)
+            {
+                XORresult += a[i] ^ b[i];
+            }
+            return XORresult;
+        }
+
+        private string EPermutation(string input)
+        {
+            char[] output = new char[E.Length];
+
+            for (int i = 0; i < E.Length; i++)
+            {
+                output[i] = input[E[i] - 1];
+            }
+
+            return new string(output);
+        }
+
+        private string S(string input, int[,] selection)
+        {
+            string row = "" + input[0] + input[5];
+            string column = "" + input[1] + input[2] + input[3] + input[4];
+            return Convert.ToString(selection[Convert.ToInt32(row, 2), Convert.ToInt32(column, 2)], 2).PadLeft(4, '0');
         }
 
         public static int[] IP =
