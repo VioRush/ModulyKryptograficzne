@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections;
 using System.Linq;
 
@@ -9,9 +9,14 @@ namespace WpfApp1.Core
         public static string[] K;
         public static ArrayList Sn;
 
+        byte[] dane;
+
         public DES(byte[] binaryInput, byte[] key)
         {
             //input and generator(key)
+            dane = binaryInput;
+            KeysGenerator(key);
+
             Sn = new ArrayList();
             Sn.Add(S1);
             Sn.Add(S2);
@@ -34,7 +39,7 @@ namespace WpfApp1.Core
             for(int i = 0; i < 28; i++)
             {
                 C[i] = dataKey[PC1[i] - 1];
-                D[i] = dataKey[PC2[i + 28] - 1];
+                D[i] = dataKey[PC1[i + 28] - 1];
             }
 
             for(int i = 0; i < 16; i++)
@@ -307,5 +312,24 @@ namespace WpfApp1.Core
         };
 
         public static int[] LEFTSHIFTS = { 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1 };
+
+        public string Zaszyf()
+        {
+
+            string doZaszyf;
+            doZaszyf = Permutation(string.Concat(dane.Select(b => Convert.ToString(b, 2).PadLeft(8, '0'))).PadRight(64, '0'), IP); 
+            string resultat = DeCalculate(doZaszyf);
+            resultat = Permutation(resultat, IPINV); 
+            return resultat;
+        }
+
+        public string Razszyf()
+        {
+            string doRazszyf;
+            doRazszyf = Permutation(string.Concat(dane.Select(b => Convert.ToString(b, 2).PadLeft(8, '0'))), IP);
+            string resultat = Calculate(doRazszyf);
+            resultat = Permutation(resultat, IPINV);
+            return resultat;
+        }
     }
 }
