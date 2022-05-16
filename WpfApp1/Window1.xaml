@@ -16,7 +16,7 @@
                 <SolidColorBrush Color="#FF43DEFC" Opacity="0.9"/>
             </Label.Background>
         </Label>
-        <TextBox Name="Klucz" HorizontalAlignment="Left" Height="23" Margin="323,108,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="404" FontSize="16"/>
+        <TextBox Name="Klucz" Text="3b3898371520f75e" HorizontalAlignment="Left" Height="23" Margin="323,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="404" FontSize="16" />
 
         <Button Content="Zaszyfruj plik" Padding="5" Foreground="White" HorizontalAlignment="Left" Margin="362,174,0,0" VerticalAlignment="Top" Width="107" Click="Zaszyfruj_Click" FontFamily="Book Antiqua" FontSize="14" FontWeight="Bold">
             <Button.Background>
